@@ -21,7 +21,7 @@
   border-bottom: 1px solid #222;
 }
 
-.tab-content {
+#tab-content {
   position: absolute;
   left: 0;
   top: 59px;
