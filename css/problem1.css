@@ -4,9 +4,6 @@
   border: 1px solid black;
   background: #111;
   margin: 70px auto;
-  -webkit-perspective: 400px;
-  -ms-perspective: 400px;
-  perspective: 400px;
   overflow: hidden;
 }
 
