@@ -59,6 +59,8 @@
 
 		//First naively replace all query matches, including tags in between, with wrapping span tags
 		nodeHTML = nodeHTML.replace(pattern, '<span class="highlight">$1</span>');
+		//Remove any instances of back-to-back highlights
+		nodeHTML = nodeHTML.replace(/<\/span><span class="highlight">/g, '');
 		//Fix any intermediary tags by closing and reopening the span tags
 		nodeHTML = nodeHTML.replace(/(<span class="highlight">[^<>]*)((<[^>]+>)+)([^<>]*<\/span>)/,'$1</span>$2<span class="highlight">$4');
 
