@@ -1,14 +1,15 @@
 #rotator {
-  width: 450px;
-  height: 340px;
-  border: 1px solid black;
-  background: #111;
-  margin: 70px auto;
-  overflow: hidden;
+	width: 450px;
+	height: 340px;
+	border: 1px solid black;
+	background: #111;
+	margin: 70px auto;
+	overflow: visible;
+	position: relative;
 }
 
 .slide {
-	position: relative;
+	position: absolute;
 	height: 100%;
 	width: 100%;
 	background-color: #111;
