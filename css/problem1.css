@@ -1,8 +1,30 @@
 #rotator {
   width: 450px;
-  height: 300px;
+  height: 350px;
   border: 1px solid black;
-  background: #aaa;
+  background: #111;
   text-align: center;
   margin: 70px auto;
+}
+
+.slide > h4 {
+	position: absolute;
+	top: 250px;
+	left: 0;
+}
+
+.slide > p {
+	position: absolute;
+	top: 276px;
+	left: 0;
+}
+
+.slide > img {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.slide:nth-child(2) {
+	top: 100px;
 }
