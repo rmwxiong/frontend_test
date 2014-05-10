@@ -52,7 +52,7 @@
 		//Adjust regex to preserve matching whitespace on either side of HTML tags
 		query = query.replace(/(\s+)/,'(<[^>]+>)*$1(<[^>]+>)*');
 		//Use lookahead to avoid matching on text with tags. i.e. "the" in <a href="ectoterms.html"> 
-		var pattern = new RegExp('('+query+'(?![^<]+>))', 'gi');
+		var pattern = new RegExp('('+query+'(?![^<]*>))', 'gi');
 
 		//First naively replace all query matches, including tags in between, with wrapping span tags
 		nodeHTML = nodeHTML.replace(pattern, '<span class="highlight">$1</span>');
