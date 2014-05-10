@@ -49,6 +49,8 @@
 
 	function highlightText(searchText, query) {
 		nodeHTML = searchText.innerHTML;
+		//Escape any regex characters in the query
+		query = query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 		//Adjust regex to preserve matching whitespace on either side of HTML tags
 		query = query.replace(/(\s+)/,'(<[^>]+>)*$1(<[^>]+>)*');
 		//Use lookahead to avoid matching on text with tags. i.e. "the" in <a href="ectoterms.html"> 
