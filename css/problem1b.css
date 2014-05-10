@@ -6,3 +6,28 @@
   margin: 70px auto;
   overflow: hidden;
 }
+
+.slide {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	background-color: #111;
+}
+
+.slide > h4 {
+	position: absolute;
+	top: 255px;
+	left: 10px;
+}
+
+.slide > p {
+	position: absolute;
+	top: 281px;
+	left: 20px;
+}
+
+.slide > img {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
