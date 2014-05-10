@@ -1,13 +1,11 @@
 #rotator {
-  width: 450px;
-  height: 340px;
-  border: 1px solid black;
-  background: #111;
-  margin: 70px auto;
-  -webkit-perspective: 400px;
-  -ms-perspective: 400px;
-  perspective: 400px;
-  overflow: hidden;
+	position: relative;
+	width: 450px;
+	height: 340px;
+	border: 1px solid black;
+	background: #111;
+	margin: 70px auto;
+	overflow: visible;
 }
 
 .slide {
@@ -70,11 +68,11 @@
 
 	75% {
 		margin-left: -100%;
+		z-index: 1;
 	}
 
 	80% {
 		margin-left: 0;
-		z-index: 1;
 	}
 
 	100% {
@@ -98,11 +96,11 @@
 
 	75% {
 		margin-left: -100%;
+		z-index: 1;
 	}
 
 	80% {
 		margin-left: 0;
-		z-index: 1;
 	}
 
 	100% {
