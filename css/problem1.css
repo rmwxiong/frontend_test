@@ -5,7 +5,7 @@
 	border: 1px solid black;
 	background: #111;
 	margin: 70px auto;
-	overflow: visible;
+	overflow: hidden;
 }
 
 .slide {
