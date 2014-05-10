@@ -17,13 +17,15 @@
 		var matchIndicies = [];
 		var i = 0;
 		var matchIndex;
+		var matchCount = 0;
+		var matchText = searchText.innerText || searchText.textContent;
 
-		while ((matchIndex = searchText.innerText.indexOf(query, i)) > -1) {
-			matchIndicies.push(matchIndex);
+		while ((matchIndex = matchText.indexOf(query, i)) > -1) {
+			matchCount += 1;
 			i = matchIndex + queryLength;
 		}
 
-		resultMessage.innerHTML = 'Found ' + matchIndicies.length + ' occurances of the word "' + query + '" in the below text.';
+		resultMessage.innerHTML = 'Found ' + matchCount + ' occurances of the word "' + query + '" in the below text.';
 	}
 
 }());
