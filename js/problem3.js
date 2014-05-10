@@ -9,7 +9,7 @@
 
 	function handleSubmit(evt) {
 		evt.preventDefault();
-		performSearch(searchInput.value);
+		if (searchInput.value.length > 0) performSearch(searchInput.value);
 	}
 
 	function performSearch(query) {
@@ -23,7 +23,7 @@
 			i = matchIndex + queryLength;
 		}
 
-		console.log(matchIndicies);
+		resultMessage.innerHTML = 'Found ' + matchIndicies.length + ' occurances of the word "' + query + '" in the below text.';
 	}
 
 }());
