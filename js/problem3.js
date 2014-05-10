@@ -28,16 +28,29 @@
 	// 	resultMessage.innerHTML = 'Found ' + matchCount + ' occurances of the word "' + query + '" in the below text.';
 	// }
 
+	//HIGHLIGHT SOLUTION:
+
 	function performSearch(query) {
-		innerHighlight(searchText, 'CROC');
+		var queryLength = query.length;
+		var matchIndicies = [];
+		var i = 0;
+		var matchCount = 0;
+
+		while ((matchIndex = searchText.innerText.indexOf(query, i)) > -1) {
+			matchCount += 1;
+			i = matchIndex + queryLength;
+		}
+
+		resultMessage.innerHTML = 'Found ' + matchCount + ' occurances of the word "' + query + '" in the below text.';
+
+		innerHighlight(searchText, query);
 		setTimeout(removeHighlights, 1000);
 	}
-
 
 	function innerHighlight(node, pat) {
 		var skip = 0;
 		if (node.nodeType == 3) {
-			var pos = node.data.toUpperCase().indexOf(pat);
+			var pos = node.data.indexOf(pat);
 			if (pos >= 0) {
 				var spanNode = document.createElement('span');
 				spanNode.className = 'highlight';
