@@ -1,9 +1,8 @@
 #rotator {
   width: 450px;
-  height: 350px;
+  height: 340px;
   border: 1px solid black;
   background: #111;
-  text-align: center;
   margin: 70px auto;
   -webkit-perspective: 400px;
   -ms-perspective: 400px;
@@ -25,13 +24,13 @@
 
 .slide > h4 {
 	position: absolute;
-	top: 250px;
+	top: 255px;
 	left: 10px;
 }
 
 .slide > p {
 	position: absolute;
-	top: 276px;
+	top: 281px;
 	left: 20px;
 }
 
