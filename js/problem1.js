@@ -28,7 +28,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 		title: 'High Command Katarina',
 		caption: 'Oat cake macaroon souffle cupcake chupa chups chocolate bar bear claw dragee lemon drops.'
 	},];
-
 	
 
 	//////////////////
@@ -51,28 +50,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 
 	window.setInterval(nextSlide, 3000);
 
-	function nextSlide() {
-		setXTransform(hiddenSlide, -rotatorWidth);
-		setSlideData(hiddenSlide, SLIDES[(currentSlideIndex + 1) % SLIDES.length]);
-		currentSlideIndex += 1;
-		hiddenSlide.style.zIndex = 1;
-		mainSlide.style.zIndex = 0;
-		requestAnimationFrame(renderFrame);
-	}
-
-	function setXTransform(element, offset) {
-		var transformString = "translateX(" + offset + "px)";
-		element.style.webkitTransform = transformString;
-		element.style.transform = transformString;
-		element.XOffset = offset;
-	}
-
-	function setSlideData(element, slideData) {
-		element.imgNode.src = slideData.imageUrl;
-		element.titleNode.innerHTML = slideData.title;
-		element.captionNode.innerHTML = slideData.caption;
-	}
-
+	//One time function to set properties on the DOM objects for the slide elements
 	function identifySlideNodes(element) {
 		var nodes = element.childNodes;
 		for(i = 0; i < nodes.length; i++) {
@@ -90,17 +68,29 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 		}
 	}
 
-	function setTransformOrigin(element, originLocation) {
-		element.style.webkitTransformOrigin = originLocation;
-		element.style.transformOrigin = originLocation;
-		element.style.msTransformOrigin = originLocation;
+	//Main 3s loop to show the next slide
+	function nextSlide() {
+		setXTransform(hiddenSlide, -rotatorWidth);
+		setSlideData(hiddenSlide, SLIDES[(currentSlideIndex + 1) % SLIDES.length]);
+		currentSlideIndex += 1;
+		hiddenSlide.style.zIndex = 1;
+		mainSlide.style.zIndex = 0;
+		requestAnimationFrame(renderFrame);
 	}
 
-	function setRotateY(element, degrees) {
-		degrees = degrees || 0;
-		var transformString = "rotateY(" + degrees + "deg)";
+	//Helper function to set the "transform: translateX()" style of an element
+	function setXTransform(element, offset) {
+		var transformString = "translateX(" + offset + "px)";
 		element.style.webkitTransform = transformString;
 		element.style.transform = transformString;
+		element.XOffset = offset;
+	}
+
+	//Sets the nodes of a '.slide' element to the data provided from SLIDES
+	function setSlideData(element, slideData) {
+		element.imgNode.src = slideData.imageUrl;
+		element.titleNode.innerHTML = slideData.title;
+		element.captionNode.innerHTML = slideData.caption;
 	}
 
 	//////////////////
@@ -108,6 +98,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	//////////////////
 	var startTime = 0;
 
+	//Main callback for requestAnimationFrame. Moves the slide into frame based on time
 	function renderFrame(currentTime) {
 		if (startTime === 0) startTime = currentTime;
 
@@ -124,6 +115,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 		}
 	}
 
+	//Simple math function for y = -(x-1)^3
 	function easeOut(timeProgress, duration) {
 		var progress = timeProgress / duration - 1;
 		return -progress * progress * progress;
