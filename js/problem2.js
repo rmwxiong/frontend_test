@@ -23,9 +23,12 @@
 	function handleContainerClick(evt) {
 		var element = evt.target;
 
+		//Check if a tab was clicked
 		if (element.className.indexOf('tab') > -1) {
+			//Move the selected class to the clicked tab
 			selectedTab.className = 'tab';
 			element.className += ' selected';
+			//Set the text content to the associated tab
 			tabContentContainer.innerHTML = element.tabContent;
 			selectedTab = element;
 		}
