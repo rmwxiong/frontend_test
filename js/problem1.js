@@ -49,7 +49,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 
 	var rotatorWidth = rotator.offsetWidth;
 
-	rotator.addEventListener('click', nextSlide);
+	window.setInterval(nextSlide, 3000);
 
 	function nextSlide() {
 		setXTransform(hiddenSlide, -rotatorWidth);
