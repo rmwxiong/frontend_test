@@ -35,8 +35,9 @@
 		var matchIndicies = [];
 		var i = 0;
 		var matchCount = 0;
+		var matchText = searchText.innerText.toUpperCase();
 
-		while ((matchIndex = searchText.innerText.indexOf(query, i)) > -1) {
+		while ((matchIndex = matchText.indexOf(query.toUpperCase(), i)) > -1) {
 			matchCount += 1;
 			i = matchIndex + queryLength;
 		}
