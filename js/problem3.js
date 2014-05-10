@@ -43,31 +43,19 @@
 
 		resultMessage.innerHTML = 'Found ' + matchCount + ' occurances of the word "' + query + '" in the below text.';
 
-		innerHighlight(searchText, query);
-		setTimeout(removeHighlights, 1000);
+		removeHighlights();
+		highlightText(searchText, query);
 	}
 
-	function innerHighlight(node, pat) {
-		var skip = 0;
-		if (node.nodeType == 3) {
-			var pos = node.data.indexOf(pat);
-			if (pos >= 0) {
-				var spanNode = document.createElement('span');
-				spanNode.className = 'highlight';
-				spanNode.style.backgroundColor = 'yellow';
-				var textNodeToHighlight = node.splitText(pos);
-				var remainingTextNode = textNodeToHighlight.splitText(pat.length);
-				var highlightNodeClone = textNodeToHighlight.cloneNode(true);
-				spanNode.appendChild(highlightNodeClone);
-				textNodeToHighlight.parentNode.replaceChild(spanNode, textNodeToHighlight);
-				skip = 1;
-			}
-		} else if (node.nodeType == 1 && node.childNodes && !/(script|style)/i.test(node.tagName)) {
-			for (var i = 0; i < node.childNodes.length; ++i) {
-				i += innerHighlight(node.childNodes[i], pat);
-			}
-		}
-		return skip;
+	function highlightText(searchText, query) {
+		nodeHTML = searchText.innerHTML;
+		query = query.replace(/(\s+)/,'(<[^>]+>)*$1(<[^>]+>)*');
+		var pattern = new RegExp('('+query+'(?![^<]+>))', 'gi');
+
+		nodeHTML = nodeHTML.replace(pattern, '<span class="highlight">$1</span>');
+		nodeHTML = nodeHTML.replace(/(<span class="highlight">[^<>]*)((<[^>]+>)+)([^<>]*<\/span>)/,'$1</span>$2<span class="highlight">$4');
+
+		searchText.innerHTML = nodeHTML;
 	}
 
 	function removeHighlights() {
@@ -79,4 +67,5 @@
 			nodeParent.normalize();
 		}
 	}
+
 }());
