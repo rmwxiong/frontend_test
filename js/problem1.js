@@ -37,8 +37,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	var currentSlideIndex = 0;
 
 	var rotator = document.getElementById('rotator');
-	var slide1 = document.getElementById('slide1');
-	var slide2 = document.getElementById('slide2');
+	var slide1 = document.getElementById('port-slide');
+	var slide2 = document.getElementById('starboard-slide');
 	slide1.XOffset = 0;
 	slide2.XOffset = 0;
 	identifySlideNodes(slide1);
