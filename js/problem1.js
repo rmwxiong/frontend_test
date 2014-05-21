@@ -74,6 +74,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 		setSlideData(hiddenSlide, SLIDES[(currentSlideIndex + 1) % SLIDES.length]);
 		setXTransform(hiddenSlide, -rotatorWidth);
 		setXTransform(hiddenSlide.titleNode, -hiddenSlide.titleNode.offsetWidth);
+		setYTransform(hiddenSlide.captionNode, hiddenSlide.captionNode.offsetHeight);
 		currentSlideIndex += 1;
 		hiddenSlide.style.zIndex = 1;
 		mainSlide.style.zIndex = 0;
@@ -86,6 +87,13 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 		element.style.webkitTransform = transformString;
 		element.style.transform = transformString;
 		element.XOffset = offset;
+	}
+
+	function setYTransform(element, offset) {
+		var transformString = 'translateY(' + offset + 'px)';
+		element.style.webkitTransform = transformString;
+		element.style.transform = transformString;
+		element.YOffset = offset;
 	}
 
 	//Sets the nodes of a '.slide' element to the data provided from SLIDES
@@ -104,12 +112,15 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	function renderFrame(currentTime) {
 		if (startTime === 0) startTime = currentTime;
 		var newOffset = 0;
-		if (hiddenSlide.XOffset < 0 || hiddenSlide.titleNode.XOffset < 0) {
+		if (hiddenSlide.XOffset < 0 || hiddenSlide.titleNode.XOffset < 0 || hiddenSlide.captionNode.YOffset > 0) {
 			newOffset = -rotatorWidth * easeOut(currentTime - startTime, 1000);
 			setXTransform(hiddenSlide, Math.min(newOffset, 0));
 
 			newOffset = -hiddenSlide.titleNode.offsetWidth * easeOut(currentTime - startTime - 500, 1500);
 			setXTransform(hiddenSlide.titleNode, Math.min(newOffset, 0));
+
+			newOffset = hiddenSlide.captionNode.offsetHeight * easeOut(currentTime - startTime - 800, 1300);
+			setYTransform(hiddenSlide.captionNode, Math.max(newOffset, 0));
 			window.requestAnimationFrame(renderFrame);
 		} else {
 			startTime = 0;
