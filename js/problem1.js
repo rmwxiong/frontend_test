@@ -71,8 +71,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 
 	//Main 3s loop to show the next slide
 	function nextSlide() {
-		setXTransform(hiddenSlide, -rotatorWidth);
 		setSlideData(hiddenSlide, SLIDES[(currentSlideIndex + 1) % SLIDES.length]);
+		setXTransform(hiddenSlide, -rotatorWidth);
+		setXTransform(hiddenSlide.titleNode, -hiddenSlide.titleNode.offsetWidth);
 		currentSlideIndex += 1;
 		hiddenSlide.style.zIndex = 1;
 		mainSlide.style.zIndex = 0;
@@ -102,11 +103,16 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	//Main callback for requestAnimationFrame. Moves the slide into frame based on time
 	function renderFrame(currentTime) {
 		if (startTime === 0) startTime = currentTime;
-
+		var newOffset = 0;
 		if (hiddenSlide.XOffset < 0) {
-			var newOffset = -rotatorWidth * easeOut(currentTime - startTime, 1000);
+			newOffset = -rotatorWidth * easeOut(currentTime - startTime, 1000);
 
 			setXTransform(hiddenSlide, Math.min(newOffset, 0));
+			window.requestAnimationFrame(renderFrame);
+		} else if (hiddenSlide.titleNode.XOffset < 0) {
+			newOffset = -hiddenSlide.titleNode.offsetWidth * easeOut(currentTime - startTime - 1000, 1000);
+
+			setXTransform(hiddenSlide.titleNode, Math.min(newOffset, 0));
 			window.requestAnimationFrame(renderFrame);
 		} else {
 			startTime = 0;
