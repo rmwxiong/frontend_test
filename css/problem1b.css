@@ -1,6 +1,6 @@
 #rotator {
 	width: 450px;
-	height: 340px;
+	height: 266px;
 	border: 1px solid black;
 	background: #111;
 	margin: 70px auto;
@@ -17,14 +17,25 @@
 
 .slide > h4 {
 	position: absolute;
-	top: 255px;
-	left: 10px;
+	top: 20px;
+	font-size: 20px;
+	font-weight: normal;
+	text-shadow: 2px 2px 2px #000;
+	background-color: rgba(200, 255, 240, 0.2);
+	padding: 10px;
+	border-top: 2px solid rgba(0, 0, 0, 0.2);
+	border-left-width: 0;
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
-.slide > p {
+.copy-container {
 	position: absolute;
-	top: 281px;
-	left: 20px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .slide > img {

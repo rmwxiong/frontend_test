@@ -62,7 +62,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 				case 'H4':
 					element.titleNode = nodes[i];
 					break;
-				case 'P':
+				case 'DIV':
 					element.captionNode = nodes[i];
 					break;
 			}
