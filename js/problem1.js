@@ -104,14 +104,11 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	function renderFrame(currentTime) {
 		if (startTime === 0) startTime = currentTime;
 		var newOffset = 0;
-		if (hiddenSlide.XOffset < 0) {
+		if (hiddenSlide.XOffset < 0 || hiddenSlide.titleNode.XOffset < 0) {
 			newOffset = -rotatorWidth * easeOut(currentTime - startTime, 1000);
-
 			setXTransform(hiddenSlide, Math.min(newOffset, 0));
-			window.requestAnimationFrame(renderFrame);
-		} else if (hiddenSlide.titleNode.XOffset < 0) {
-			newOffset = -hiddenSlide.titleNode.offsetWidth * easeOut(currentTime - startTime - 1000, 1000);
 
+			newOffset = -hiddenSlide.titleNode.offsetWidth * easeOut(currentTime - startTime - 500, 1500);
 			setXTransform(hiddenSlide.titleNode, Math.min(newOffset, 0));
 			window.requestAnimationFrame(renderFrame);
 		} else {
