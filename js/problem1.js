@@ -1,5 +1,8 @@
+'use strict';
+
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
+                              (function( callback ){window.setTimeout(callback, 1000 / 60);});
 
 (function() {
 
@@ -53,7 +56,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	//One time function to set properties on the DOM objects for the slide elements
 	function identifySlideNodes(element) {
 		var nodes = element.childNodes;
-		for(i = 0; i < nodes.length; i++) {
+		for(var i = 0; i < nodes.length; i++) {
 			switch (nodes[i].nodeName.toUpperCase()) {
 				case 'IMG':
 					element.imgNode = nodes[i];
@@ -75,12 +78,12 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 		currentSlideIndex += 1;
 		hiddenSlide.style.zIndex = 1;
 		mainSlide.style.zIndex = 0;
-		requestAnimationFrame(renderFrame);
+		window.requestAnimationFrame(renderFrame);
 	}
 
 	//Helper function to set the "transform: translateX()" style of an element
 	function setXTransform(element, offset) {
-		var transformString = "translateX(" + offset + "px)";
+		var transformString = 'translateX(' + offset + 'px)';
 		element.style.webkitTransform = transformString;
 		element.style.transform = transformString;
 		element.XOffset = offset;
@@ -106,7 +109,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 			var newOffset = -rotatorWidth * easeOut(currentTime - startTime, 1000);
 
 			setXTransform(hiddenSlide, Math.min(newOffset, 0));
-			requestAnimationFrame(renderFrame);
+			window.requestAnimationFrame(renderFrame);
 		} else {
 			startTime = 0;
 			var temp = mainSlide;
