@@ -49,9 +49,10 @@
 .ticker {
 	position: absolute;
 	top: 5px;
-	left: 180px;
+	left: 181px;
 	z-index: 2;
 	opacity: 0.5;
+	visibility: hidden;
 }
 
 .off, .on {
