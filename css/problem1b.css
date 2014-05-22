@@ -48,9 +48,10 @@
 
 .ticker {
 	position: absolute;
-	right: 20px;
-	bottom: 45px;
+	top: 5px;
+	left: 180px;
 	z-index: 2;
+	opacity: 0.5;
 }
 
 .off, .on {
@@ -58,6 +59,10 @@
 	height: 10px;
 	margin: 0 5px;
 	border-radius: 50%;
-	background-color: #fff;
+	border: 1px solid black;
 	float: left;
+}
+
+.on {
+	background-color: #fff;
 }
