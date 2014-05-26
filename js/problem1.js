@@ -28,7 +28,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 		imageUrl: '../img/kat_4.jpg',
 		title: 'High Command Katarina',
 		caption: 'Oat cake macaroon souffle cupcake chupa chups chocolate bar bear claw dragee lemon drops.'
-	},];
+	}];
 	
 
 	//////////////////
