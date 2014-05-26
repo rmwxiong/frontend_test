@@ -1,9 +1,9 @@
+//Simple RequestAnimationFrame polyfill
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
-                              (function( callback ){window.setTimeout(callback, 1000 / 60);});
+                              (function( callback ){window.setTimeout(function(){callback(Date.now());}, 1000 / 60);});
 
 (function() {
-
 	//////////////////
 	///DECLARATIONS///
 	//////////////////
@@ -34,6 +34,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	//////////////////
 	///////APP////////
 	//////////////////
+	var transformPrefix = identifyTransformPrefix();
 	var currentSlideIndex = 0;
 
 	var rotator = document.getElementById('rotator');
@@ -50,6 +51,16 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	var rotatorWidth = rotator.offsetWidth;
 
 	window.setInterval(nextSlide, 3000);
+
+	function identifyTransformPrefix() {
+		var prefixes = ['transform', 'WebkitTransform', 'MozTransform', 'OTransform', 'msTransform'];
+		var testDiv = document.createElement('div');
+		for (var i = 0; i < prefixes.length; i++) {
+			if (testDiv.style[prefixes[i]] !== undefined) {
+				return prefixes[i];
+			}
+		}
+	}
 
 	//One time function to set properties on the DOM objects for the slide elements
 	function identifySlideNodes(element) {
@@ -83,16 +94,14 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 
 	//Helper function to set the "transform: translateX()" style of an element
 	function setXTransform(element, offset) {
-		var transformString = 'translateX(' + offset + 'px)';
-		element.style.webkitTransform = transformString;
-		element.style.transform = transformString;
+		if (!transformPrefix) return;
+		element.style[transformPrefix] = 'translateX(' + offset + 'px)';
 		element.XOffset = offset;
 	}
 
 	function setYTransform(element, offset) {
-		var transformString = 'translateY(' + offset + 'px)';
-		element.style.webkitTransform = transformString;
-		element.style.transform = transformString;
+		if (!transformPrefix) return;
+		element.style[transformPrefix] = 'translateY(' + offset + 'px)';
 		element.YOffset = offset;
 	}
 
