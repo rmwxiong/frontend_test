@@ -40,8 +40,12 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 			queuedCopy = element.tabContent;
 			selectedTab = element;
 			tabCopyContainer.style.opacity = 1;
-			//Fade out the old text
-			window.requestAnimationFrame(fadeOutContent);
+			if (hasOpacity) {
+				//Begin animation by fading out old text
+				window.requestAnimationFrame(fadeOutContent);
+			} else {
+				tabCopyContainer.innerHTML = queuedCopy;
+			}
 		}
 	}
 
@@ -53,7 +57,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	function fadeOutContent(currentTime) {
 		if (startTime === 0) startTime = currentTime;
 		if (tabCopyContainer.style.opacity > 0) {
-			tabCopyContainer.style.opacity = Math.max(1 - (currentTime - startTime) / 200, 0);
+			tabCopyContainer.style.opacity = Math.max(1 - (currentTime - startTime) / 100, 0);
 			requestAnimationFrame(fadeOutContent);
 		} else {
 			startTime = 0;
