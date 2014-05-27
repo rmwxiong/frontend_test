@@ -52,6 +52,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 
 	window.setInterval(nextSlide, 3000);
 
+	//Quick loop to test which version of transform is available
 	function identifyTransformPrefix() {
 		var prefixes = ['transform', 'WebkitTransform', 'MozTransform', 'OTransform', 'msTransform'];
 		var testDiv = document.createElement('div');
@@ -89,7 +90,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 		currentSlideIndex += 1;
 		hiddenSlide.style.zIndex = 1;
 		mainSlide.style.zIndex = 0;
-		window.requestAnimationFrame(renderFrame);
+		//Only execute animation if transform style exists
+		if (transformPrefix) window.requestAnimationFrame(renderFrame);
 	}
 
 	//Helper function to set the "transform: translateX()" style of an element
