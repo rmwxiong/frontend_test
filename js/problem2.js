@@ -1,3 +1,9 @@
+//Tested in Chrome, Firefox, IE 8+
+//Support for animations in IE 9+
+
+//Note that requestAnimationFrame is used instead of CSS3 transitions for broader browser support
+//and tighter control of the animations themselves.
+
 //Simple RequestAnimationFrame polyfill
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
