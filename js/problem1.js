@@ -14,6 +14,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	///DECLARATIONS///
 	//////////////////
 
+	//By assuming data comes from a JSON source, the clientside software can remain unchanged and cached.
+	//This static variable, for instance, could be the result of some XmlHttpRequest.
+	//In addition, it is also easier to manipulate and compare data 
+	//when it does not need to be first parsed out of HTML.
 	var SLIDES = 
 	[{
 		imageUrl: '../img/kat_1.jpg',

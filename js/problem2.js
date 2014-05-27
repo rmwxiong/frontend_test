@@ -31,8 +31,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	//Run a loop to assocate tab DOM objects with their text content
 	for (var i = 0; i < tabs.length; i++) tabs[i].tabContent = TAB_CONTENT[i];
 	var selectedTab = document.querySelectorAll('.selected')[0];
-	var tabCopyContainer = document.getElementById('tab-copy');
-	var contentContainer = tabCopyContainer.parentElement;
+	var tabCopyElement = document.getElementById('tab-copy');
+	var contentContainer = tabCopyElement.parentElement;
 	var queuedCopy = '';
 
 	//Delegate click events to the container
@@ -52,12 +52,12 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 			element.className += ' selected';
 			queuedCopy = element.tabContent;
 			selectedTab = element;
-			tabCopyContainer.style.opacity = 1;
+			tabCopyElement.style.opacity = 1;
 			if (hasOpacity) {
 				//Begin animation by fading out old text
 				window.requestAnimationFrame(fadeOutContent);
 			} else {
-				tabCopyContainer.innerHTML = queuedCopy;
+				tabCopyElement.innerHTML = queuedCopy;
 			}
 		}
 	}
@@ -69,41 +69,46 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	var oldContentHeight;
 	var newContentHeight;
 
+	//Beginning of transition animation. Fades out tab content
 	function fadeOutContent(currentTime) {
 		if (startTime === 0) startTime = currentTime;
-		if (tabCopyContainer.style.opacity > 0) {
-			tabCopyContainer.style.opacity = Math.max(1 - (currentTime - startTime) / 100, 0);
+		if (tabCopyElement.style.opacity > 0) {
+			tabCopyElement.style.opacity = Math.max(1 - (currentTime - startTime) / 100, 0);
 			requestAnimationFrame(fadeOutContent);
 		} else {
 			startTime = 0;
 			//Set the text content to the associated tab
 			computeContainerHeights();
-			tabCopyContainer.innerHTML = queuedCopy;
-			requestAnimationFrame(resizeContentContainer);
+			tabCopyElement.innerHTML = queuedCopy;
+			requestAnimationFrame(resizeAndFadeContentContainer);
 		}
 	}
 
+	//Quick and dirty method to calculate the post-transition content height
 	function computeContainerHeights() {
 		oldContentHeight = contentContainer.offsetHeight;
 
 		var originalHTML = contentContainer.innerHTML;
 
+		//Set the tab content to its post-transition values, and measure height
 		contentContainer.style.height = '';
-		tabCopyContainer.innerHTML = queuedCopy;
+		tabCopyElement.innerHTML = queuedCopy;
 		newContentHeight = contentContainer.offsetHeight;
 
-		tabCopyContainer.innerHTML = originalHTML;
+		//Return content and height to original values
+		tabCopyElement.innerHTML = originalHTML;
 		contentContainer.style.height = (oldContentHeight - CONTENT_PADDING) + 'px';
 	}
 
-	function resizeContentContainer(currentTime) {
+	//Second part of transition animation. Expands/contracts content and fades in new content
+	function resizeAndFadeContentContainer(currentTime) {
 		if (startTime === 0) startTime = currentTime;
-		if (tabCopyContainer.style.opacity < 1 || contentContainer.style.height != (newContentHeight - CONTENT_PADDING) + 'px') {
+		if (tabCopyElement.style.opacity < 1 || contentContainer.style.height != (newContentHeight - CONTENT_PADDING) + 'px') {
 			var heightIncrement = (newContentHeight - oldContentHeight) * Math.min(easeInOut(currentTime - startTime, 300), 1);
 			contentContainer.style.height = (heightIncrement + oldContentHeight - CONTENT_PADDING) + 'px';
 
-			tabCopyContainer.style.opacity = Math.min((currentTime - startTime) / 500, 1);
-			requestAnimationFrame(resizeContentContainer);
+			tabCopyElement.style.opacity = Math.min((currentTime - startTime) / 500, 1);
+			requestAnimationFrame(resizeAndFadeContentContainer);
 		} else {
 			startTime = 0;
 		}
