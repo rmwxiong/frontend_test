@@ -60,6 +60,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 
 	//Quick loop to test which version of transform is available
 	function identifyTransformPrefix() {
+		//Note: Animating transforms is much faster than animating top/left attributes.
+		//See http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/
 		var prefixes = ['transform', 'WebkitTransform', 'MozTransform', 'OTransform', 'msTransform'];
 		var testDiv = document.createElement('div');
 		for (var i = 0; i < prefixes.length; i++) {
