@@ -1,33 +1,32 @@
 #container {
   position: relative;
-  width: 100%;
+  width: 50%;
   height: 500px;
+  margin: auto;
 }
 
 .tab {
-  margin-top: 20px;
+  margin-top: 21px;
+  margin-right: 3px;
   float: left;
   position: relative;
-  background: #222; 
-  padding: 10px; 
-  border: 1px solid #ccc;
-  border-radius: 10px 10px 0 0;
+  background: #222;
+  padding: 10px;
   font-weight: bold;
   z-index: 1;
+  color: #929292;
 }
 
 .selected {
   background-color: #000;
-  border-bottom: 1px solid #222;
+  color: #DC291E;
 }
 
 #tab-content {
   position: absolute;
   left: 0;
   top: 59px;
-  border: 1px solid #ccc; 
-  background-color: #222;
+  background-color: #000;
   padding: 20px;
-  border-radius: 0 10px 10px 10px;
 }
 
