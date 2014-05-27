@@ -93,7 +93,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	function resizeContentContainer(currentTime) {
 		if (startTime === 0) startTime = currentTime;
 		if (tabCopyContainer.style.opacity < 1 || contentContainer.style.height != (newContentHeight - CONTENT_PADDING) + 'px') {
-			var heightIncrement = (newContentHeight - oldContentHeight) * Math.min(easeInOut(currentTime - startTime, 200), 1);
+			var heightIncrement = (newContentHeight - oldContentHeight) * Math.min(easeInOut(currentTime - startTime, 300), 1);
 			contentContainer.style.height = (heightIncrement + oldContentHeight - CONTENT_PADDING) + 'px';
 
 			tabCopyContainer.style.opacity = Math.min((currentTime - startTime) / 500, 1);
