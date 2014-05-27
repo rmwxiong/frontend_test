@@ -12,10 +12,10 @@
 	///////APP////////
 	//////////////////
 	var container = document.getElementById('container');
-	var tabs = document.getElementsByClassName('tab');
+	var tabs = document.querySelectorAll('.tab');
 	//Run a loop to assocate tab DOM objects with their text content
 	for (var i = 0; i < tabs.length; i++) tabs[i].tabContent = TAB_CONTENT[i];
-	var selectedTab = document.getElementsByClassName('selected')[0];
+	var selectedTab = document.querySelectorAll('.selected')[0];
 	var tabContentContainer = document.getElementById('tab-content');
 
 	//Delegate click events to the container
