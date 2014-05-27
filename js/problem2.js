@@ -27,10 +27,14 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 	var queuedCopy = '';
 
 	//Delegate click events to the container
-	container.addEventListener('click', handleContainerClick);
+	if (container.addEventListener) {
+		container.addEventListener('click', handleContainerClick);
+	} else {
+		container.attachEvent('onclick', handleContainerClick);
+	}
 
 	function handleContainerClick(evt) {
-		var element = evt.target;
+		var element = evt.target || event.srcElement;
 
 		//Check if a tab was clicked
 		if (element.className.indexOf('tab') > -1) {
